@@ -29,7 +29,7 @@ setup(
     platforms=['any'],
     python_requires='>=3.6',
     # The project's main homepage.
-    url='https://github.com/darviarush/config_onion',
+    url='https://github.com/darviarush/python-config-onion',
 
     # Author details
     author=author.group(1),
@@ -66,3 +66,4 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
     ],
+)
