@@ -1,6 +1,6 @@
 # NAME
 
-config_onion - 
+config_onion -  layered configuration, because configs are like ogres
 
 # VERSION
 
@@ -8,26 +8,62 @@ config_onion -
 
 # DESCRIPTION
 
-```
-from config_onion import Config_onion
+```py
+@@ config.yml
 
-config_onion = Config_onion()
+config:
+  value:
+    connections:
+      rabbitmq:
+        default:
+          - rabbitmq
+          - user: guest
+            password: guest
 
-print(config_onion)        # -> Здравствуй, Мир!
+events:
+  - amounts:
+	  connection:
+		$ref: config
+		$path: /connections/rabbitmq/default
+
+@@ .config.yml
+config:
+  value:
+    connections:
+      rabbitmq:
+        default:
+		  - rabbitmq1
+          - user: root
+            password: 123
+
+
+@@ my.py
+
+from config_onion import read
+
+config = read(['config.yml', '.config.yml'])
+
+print(config_onion)        # -> { ... 'connection': ['rabbitmq1', {'user': 'root', 'password: 123'}] ... }
 ```
 
 # SYNOPSIS
 
+Склеивает конфиги. Так же разыменовывает ссылки вида:
 
-# CLASSES
+```yml
+$ref: ...
+$path: ...
+```
 
-# METHODS
+Такая система используется в swagger-е. В perl есть аналогичный модуль `Config::Onion`.
 
-## 
+# FUNCTIONS
+
+## read
 
 ### ARGUMENTS
 
-* `` - . Обязательный
+* `configs` - список файловых путей к конфигам. Обязательный
 
 ### RETURNS
 
@@ -52,7 +88,7 @@ it under the same terms as Python itself.
 
 # AUTHOR
 
-Kosmina O. Yaroslav < cd "/home/dart/__/@mylib/python-config-onion/config_onion/">
+Kosmina O. Yaroslav <darviarush@mail.ru>
 
 # LICENSE
 

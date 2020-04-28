@@ -3,17 +3,17 @@ import unittest
 import os
 
 
-RESULT = {'config': {'value': {'connections': {'rabbitmq': {'default': ['rabbitmq',
-                                                               {'password': 'guest',
-                                                                'user': 'guest'}]}}}},
- 'events': {'args': [{'amounts': {'connection': ['rabbitmq',
-                                                 {'password': 'guest',
-                                                  'user': 'guest'}],
+RESULT = {'config': {'value': {'connections': {'rabbitmq': {'default': ['rabbitmq1',
+                                                               {'password': 123,
+                                                                'user': 'root'}]}}}},
+ 'events': {'args': [{'amounts': {'connection': ['rabbitmq1',
+                                                 {'password': 123,
+                                                  'user': 'root'}],
                                   'exchange': 'products',
                                   'key': 'up.to.date'},
-                      'properties': {'connection': ['rabbitmq',
-                                                    {'password': 'guest',
-                                                     'user': 'guest'}],
+                      'properties': {'connection': ['rabbitmq1',
+                                                    {'password': 123,
+                                                     'user': 'root'}],
                                      'exchange': 'products',
                                      'key': 'up.to.date',
                                      'options': {'durable': 1,
@@ -84,9 +84,9 @@ config:
     connections:
       rabbitmq:
         default:
-          - rabbitmq
-          - user: guest
-            password: guest
+          - rabbitmq1
+          - user: root
+            password: 123
 
 '''
 
@@ -110,7 +110,8 @@ class Config_onionTestCase(unittest.TestCase):
     def test_config_onion(self):
     
         config = config_onion.read([PATH_CONFIG_YML, PATH_LISTENER_YML])
-        
+        from pprint import pprint
+        pprint(config)
         self.assertEqual(config, RESULT)
 
 
