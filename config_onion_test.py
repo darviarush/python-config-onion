@@ -110,8 +110,6 @@ class Config_onionTestCase(unittest.TestCase):
     def test_config_onion(self):
     
         config = config_onion.read([PATH_CONFIG_YML, PATH_LISTENER_YML])
-        from pprint import pprint
-        pprint(config)
         self.assertEqual(config, RESULT)
 
 
